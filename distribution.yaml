@@ -7,6 +7,11 @@ release_platforms:
     - jammy
 repositories:
   ros_buildfarm:
+    release:
+      tags:
+        release: release/humble/{package}/{version}
+      url: https://127.0.0.1/nonexistent.git
+      version: 0.0.0-1
     source:
       type: git
       url: https://github.com/UMRoboticsTeam/ros_buildfarm.git
