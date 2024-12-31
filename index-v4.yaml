@@ -6,8 +6,8 @@ distributions:
   humble:
     distribution:
       - https://raw.githubusercontent.com/ros/rosdistro/refs/heads/master/humble/distribution.yaml
-      - distribution.yaml
-    distribution_cache: humble-cache.yaml.gz
+      - humble/distribution.yaml
+    distribution_cache: humble/distribution-cache.yaml.gz
     distribution_status: active
     distribution_type: ros2
     python_version: 3
