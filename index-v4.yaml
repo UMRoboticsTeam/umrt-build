@@ -4,7 +4,10 @@
 ---
 distributions:
   humble:
-    distribution: [https://raw.githubusercontent.com/UMRoboticsTeam/umrt-build/refs/heads/testing-docker-build/distribution.yaml]
+    distribution:
+      - https://raw.githubusercontent.com/ros/rosdistro/refs/heads/master/humble/distribution.yaml
+      - distribution.yaml
+    distribution_cache: humble-cache.yaml.gz
     distribution_status: active
     distribution_type: ros2
     python_version: 3
