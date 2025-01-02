@@ -10,4 +10,6 @@ RUN sudo apt update && sudo apt install -y \
     less \
     python3-curtsies \
     python-is-python3 \
+    python3-bloom \
+    fakeroot \
  && rm -rf /var/lib/apt/lists/*
