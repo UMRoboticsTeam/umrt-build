@@ -12,4 +12,6 @@ RUN sudo apt update && sudo apt install -y \
     python-is-python3 \
     python3-bloom \
     fakeroot \
+    dpkg-dev \
+    debhelper \
  && rm -rf /var/lib/apt/lists/*
