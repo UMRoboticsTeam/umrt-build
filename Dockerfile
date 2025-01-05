@@ -1,6 +1,6 @@
 FROM ros:humble-ros-base
 
-RUN echo "deb [arch=amd64] https://raw.githubusercontent.com/UMRoboticsTeam/umrt-apt-repo/main/ humble main" > /etc/apt/sources.list.d/umrt_source.list
+RUN echo "deb [arch=amd64] https://raw.githubusercontent.com/UMRoboticsTeam/umrt-apt-repo/testing-ci-cd/ humble main" > /etc/apt/sources.list.d/umrt_source.list
 
 
 RUN sudo apt update && sudo apt install -y \
