@@ -27,16 +27,16 @@ jobs:
         working-directory: .
         id: extract-versions
         run: |
-          echo "PR_PKG_VERSION=$(cat pr/version)" >> "$GITHUB_OUTPUT"
-          echo "BASE_PKG_VERSION=$(cat base/version)" >> "$GITHUB_OUTPUT"
+          echo "PR_PKG_VERSION=$(cat pr/version)" >> "$GITHUB_ENV"
+          echo "BASE_PKG_VERSION=$(cat base/version)" >> "$GITHUB_ENV"
         shell: bash
 
       - name: Compare semantic versions
         uses: aleoyakas/check-semver-increased-action@v1
         id: check-version
         with:
-          current-version: ${{ steps.extract-versions.outputs.PR_PKG_VERSION }}
-          previous-version: ${{ steps.extract-versions.outputs.BASE_PKG_VERSION }}
+          current-version: ${{ env.PR_PKG_VERSION }}
+          previous-version: ${{ env.BASE_PKG_VERSION }}
 
       - name: Validated?
         if: steps.check-version.outputs.is-version-increased != 'true'
@@ -44,5 +44,5 @@ jobs:
           echo "::error::Version is not incremented, $PR_PKG_VERSION is not greater than $BASE_PKG_VERSION"
           exit 1
         env:
-          PR_PKG_VERSION: ${{ steps.extract-versions.outputs.PR_PKG_VERSION }}
-          BASE_PKG_VERSION: ${{ steps.extract-versions.outputs.BASE_PKG_VERSION }}
+          PR_PKG_VERSION: ${{ env.PR_PKG_VERSION }}
+          BASE_PKG_VERSION: ${{ env.BASE_PKG_VERSION }}
