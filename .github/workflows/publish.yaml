@@ -55,11 +55,11 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
-            apt_pubkey=${{ secrets.APT_SIGNING_PUBKEY }}
-            apt_auth_conf=|
+            apt_pubkey="${{ secrets.APT_SIGNING_PUBKEY }}"
+            apt_auth_conf="
               machine raw.githubusercontent.com
               login <YOUR GITHUB USERNAME> ${{ github.event.repository.name }} 
-              password <COPY IN THE TOKEN, BEGINNING WITH github_pat_...>
+              password <COPY IN THE TOKEN, BEGINNING WITH github_pat_...>"
       
       # This step generates an artifact attestation for the image, which is an unforgeable statement about where and how it was built. It increases supply chain security for people who consume the image. For more information, see "[AUTOTITLE](/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds)." 
       - name: Generate artifact attestation
