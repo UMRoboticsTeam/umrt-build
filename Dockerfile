@@ -3,7 +3,8 @@ FROM ros:humble-ros-base
 RUN echo "deb [arch=amd64, signed-by=/etc/apt/keyrings/umrt.asc] https://raw.githubusercontent.com/UMRoboticsTeam/umrt-apt-repo/testing-ci-cd/ humble main" > /etc/apt/sources.list.d/umrt_source.list
 
 RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf --mount=type=secret,id=apt_pubkey,target=/etc/apt/keyrings/umrt.asc \
-    sudo apt update && sudo apt install -y \
+    sudo chmod 644 /etc/apt/keyrings/umrt.asc \
+    && sudo apt update && sudo apt install -y \
         ros-humble-ros2-control \
         ros-humble-ros2-controllers \
         gdb \
