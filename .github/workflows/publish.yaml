@@ -55,8 +55,8 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
-            apt_pubkey="${{ secrets.APT_SIGNING_PUBKEY }}"
-            apt_auth_conf="
+            "apt_pubkey=${{ secrets.APT_SIGNING_PUBKEY }}"
+            "apt_auth_conf=
               machine raw.githubusercontent.com
               login <YOUR GITHUB USERNAME> ${{ github.event.repository.name }} 
               password <COPY IN THE TOKEN, BEGINNING WITH github_pat_...>"
