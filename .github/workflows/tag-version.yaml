@@ -1,0 +1,33 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/umroboticsteam/umrt-apt-image:initial-setup
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Extract version numbers
+        working-directory: .
+        id: extract-versions
+        run: |
+          echo "PR_PKG_VERSION=$(cat version)" >> "$GITHUB_ENV"
+        shell: bash
+
+      - name: Create version tag
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const {PKG_VERSION} = process.env   
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `refs/tags/v${PKG_VERSION}`,
+              sha: context.sha
+            })
