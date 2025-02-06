@@ -4,10 +4,13 @@ on:
       - main
 
 jobs:
-  check-version:
+  create-version-tag:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/umroboticsteam/umrt-apt-image:initial-setup
+
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout project
