@@ -21,7 +21,7 @@ jobs:
         working-directory: .
         id: extract-versions
         run: |
-          echo "PR_PKG_VERSION=$(cat version)" >> "$GITHUB_ENV"
+          echo "PKG_VERSION=$(cat version)" >> "$GITHUB_ENV"
         shell: bash
 
       - name: Create version tag
