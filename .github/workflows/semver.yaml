@@ -9,7 +9,7 @@ jobs:
   check-version:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/umroboticsteam/umrt-apt-image:initial-setup
+      image: ghcr.io/umroboticsteam/umrt-apt-image:main
 
     steps:
       - name: Checkout pr branch

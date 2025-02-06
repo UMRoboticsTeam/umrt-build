@@ -7,7 +7,7 @@ jobs:
   create-version-tag:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/umroboticsteam/umrt-apt-image:initial-setup
+      image: ghcr.io/umroboticsteam/umrt-apt-image:main
 
     permissions:
       contents: write
