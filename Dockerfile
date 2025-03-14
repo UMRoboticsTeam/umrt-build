@@ -18,6 +18,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         dpkg-dev \
         debhelper \
         doxygen \
+        python3-doxypypy \
         doxygen-awesome-css \
     && rm -rf /var/lib/apt/lists/*
 
