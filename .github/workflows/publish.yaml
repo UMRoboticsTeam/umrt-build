@@ -56,7 +56,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=v${{ env.PKG_VERSION }},priority=1000
+            type=raw,value=v${{ env.PKG_VERSION }},priority=1000,enable={{is_default_branch}}
             # Since default branch is main not master, we need to override what latest looks for
             type=raw,value=latest,enable={{is_default_branch}}
             type=ref,event=branch
