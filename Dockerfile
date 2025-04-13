@@ -21,7 +21,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         python3-doxypypy \
         doxygen-awesome-css \
         openframeworksarduino=0.0.3 \
-        umrt-arm-firmware-lib=0.3.7 \
+        umrt-arm-firmware-lib=0.3.8 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sudo rm -f /etc/apt/sources.list.d/umrt_source.list
