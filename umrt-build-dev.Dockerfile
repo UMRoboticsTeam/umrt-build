@@ -9,7 +9,7 @@ RUN sudo apt update && sudo apt install -y \
  && rm -rf /var/lib/apt/lists/*
 
 # Setup user for SSH
-RUN --mount=type=secret,id=DEV_USER_NAME --mount=type=secret,id=DEV_USER_PASS\
+RUN --mount=type=secret,id=DEV_USER_NAME --mount=type=secret,id=DEV_USER_PASS \
     groupadd --system "$(cat /run/secrets/DEV_USER_NAME)" && \
 	useradd \
       --system \
