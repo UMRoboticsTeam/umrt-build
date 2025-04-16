@@ -11,7 +11,7 @@ jobs:
       attestations: write
       id-token: write
 
-    uses: UMRoboticsTeam/umrt-ci-cd/.github/workflows/docker-build.yaml@reusable-docker-build
+    uses: UMRoboticsTeam/umrt-ci-cd/.github/workflows/docker-build.yaml@main
     secrets:
       APT_SERVER_NAME: raw.githubusercontent.com
       APT_SIGNING_PUBKEY: ${{ secrets.APT_SIGNING_PUBKEY }}
@@ -26,7 +26,7 @@ jobs:
       attestations: write
       id-token: write
 
-    uses: UMRoboticsTeam/umrt-ci-cd/.github/workflows/docker-build.yaml@reusable-docker-build
+    uses: UMRoboticsTeam/umrt-ci-cd/.github/workflows/docker-build.yaml@main
     with:
       image_name: umroboticsteam/umrt-build-dev
       dockerfile: umrt-build-dev.Dockerfile
