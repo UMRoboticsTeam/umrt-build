@@ -30,7 +30,7 @@ jobs:
     with:
       image_name: umrt-build-dev
       dockerfile: umrt-build-dev.Dockerfile
-      docker_build_args: "UMRT_BUILD_IMAGE_ID=${{ needs.build-umrt-build.outputs.image_id }}"
+      docker_build_args: "UMRT_BUILD_IMAGE_ID=${{ needs.build-umrt-build.outputs.image_tag }}"
     secrets:
       APT_SERVER_NAME: raw.githubusercontent.com
       APT_SIGNING_PUBKEY: ${{ secrets.APT_SIGNING_PUBKEY }}
