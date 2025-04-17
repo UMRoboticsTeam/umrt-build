@@ -31,6 +31,7 @@ jobs:
       image_name: umroboticsteam/umrt-build-dev
       dockerfile: umrt-build-dev.Dockerfile
       docker_build_args: "UMRT_BUILD_IMAGE_ID=${{ needs.build-umrt-build.outputs.image_tag }}"
+      tag_repo_with_version: false
     secrets:
       APT_SERVER_NAME: raw.githubusercontent.com
       APT_SIGNING_PUBKEY: ${{ secrets.APT_SIGNING_PUBKEY }}
