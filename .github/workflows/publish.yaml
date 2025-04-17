@@ -4,16 +4,38 @@ on:
   push
 
 jobs:
-  build:
+  build-umrt-build:
     permissions:
       contents: write
       packages: write
       attestations: write
       id-token: write
 
-    uses: UMRoboticsTeam/umrt-ci-cd/.github/workflows/docker-build.yaml@reusable-docker-build
+    uses: UMRoboticsTeam/umrt-ci-cd/.github/workflows/docker-build.yaml@main
     secrets:
       APT_SERVER_NAME: raw.githubusercontent.com
       APT_SIGNING_PUBKEY: ${{ secrets.APT_SIGNING_PUBKEY }}
       APT_RETRIEVE_USER: ${{ secrets.APT_RETRIEVE_USER }}
       APT_RETRIEVE_TOKEN: ${{ secrets.APT_RETRIEVE_TOKEN }}
+
+  build-umrt-build-dev:
+    needs: build-umrt-build
+    permissions:
+      contents: write
+      packages: write
+      attestations: write
+      id-token: write
+
+    uses: UMRoboticsTeam/umrt-ci-cd/.github/workflows/docker-build.yaml@main
+    with:
+      image_name: umroboticsteam/umrt-build-dev
+      dockerfile: umrt-build-dev.Dockerfile
+      docker_build_args: "UMRT_BUILD_IMAGE_ID=${{ needs.build-umrt-build.outputs.image_tag }}"
+    secrets:
+      APT_SERVER_NAME: raw.githubusercontent.com
+      APT_SIGNING_PUBKEY: ${{ secrets.APT_SIGNING_PUBKEY }}
+      APT_RETRIEVE_USER: ${{ secrets.APT_RETRIEVE_USER }}
+      APT_RETRIEVE_TOKEN: ${{ secrets.APT_RETRIEVE_TOKEN }}
+      DOCKER_BUILD_SECRETS: |
+        "DEV_USER_NAME=${{ secrets.DEV_USER_NAME }}"
+        "DEV_USER_PASS=${{ secrets.DEV_USER_PASS }}"
