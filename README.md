@@ -11,10 +11,9 @@ This image is intended to be used for all development work to ensure that the CI
    3. In the left sidebar, under `Personal access tokens`, click `Tokens (classic)`
    4. Click `Generate new token (classic)` at the top of the page
       1. Give your token a nice name, e.g. "UMRT Docker auth token"
-      2. Change `Resource owner` dropdown to `UMRoboticsTeam`
-      3. Set expiration to a reasonable date sometime between now and your expected graduation
-      4. Check `read:packages`, and leave the rest unchecked
-      5. Click Generate token
+      2. Set expiration to a reasonable date sometime between now and your expected graduation
+      3. Check `read:packages`, and leave the rest unchecked
+      4. Click Generate token
    5. You should now see a bunch of letters/numbers starting with `ghp_`, this is your token
    6. Save the token somewhere safe, once you leave this page you will never be able to see it again
 2. Set up Docker authentication 
