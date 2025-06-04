@@ -20,6 +20,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         doxygen \
         python3-doxypypy \
         doxygen-awesome-css \
+        ros-humble-ros2-socketcan \
         openframeworksarduino=0.0.3 \
         umrt-arm-firmware-lib=0.3.9 \
     && rm -rf /var/lib/apt/lists/*
