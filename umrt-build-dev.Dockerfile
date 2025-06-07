@@ -6,6 +6,7 @@ RUN sudo apt update && sudo apt install -y \
 	gdbserver \
 	ssh \
 	rsync \
+    nano \
  && rm -rf /var/lib/apt/lists/*
 
 # Setup user for SSH
