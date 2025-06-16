@@ -23,7 +23,6 @@ RUN ( \
     echo 'LogLevel DEBUG2'; \
     echo 'PermitRootLogin no'; \
     echo 'PasswordAuthentication yes'; \
-    echo 'Subsystem sftp /usr/lib/openssh/sftp-server'; \
     echo 'Port 50000'; \
   ) > /etc/ssh/sshd_config.d/umrt.conf \
   && mkdir /run/sshd
