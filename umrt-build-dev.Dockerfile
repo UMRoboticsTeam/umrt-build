@@ -26,10 +26,6 @@ RUN ( \
     echo 'Subsystem sftp /usr/lib/openssh/sftp-server'; \
     echo 'Port 50000'; \
   ) > /etc/ssh/sshd_config.d/umrt.conf \
-  && cat /etc/ssh/sshd_config | sed -E 's/Subsystem\s+sftp/# Subsystem sftp/g' > /etc/ssh/sshd_config \
   && mkdir /run/sshd
-# sed command fixes "Subsystem 'sftp' already defined" error caused by an oddity in OpenSSH where subsytem entries in
-#   /etc/ssh/sshd_config.d/ do not override the defaults
-# This may fixed in OpenSSH 9.5, see https://bugzilla.mindrot.org/show_bug.cgi?id=3236
 
 ENTRYPOINT /usr/sbin/sshd && /bin/bash
