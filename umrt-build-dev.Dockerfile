@@ -6,6 +6,7 @@ RUN sudo apt update && sudo apt install -y \
 	gdbserver \
 	ssh \
 	rsync \
+    nano \
  && rm -rf /var/lib/apt/lists/*
 
 # Setup user for SSH
@@ -23,7 +24,8 @@ RUN ( \
     echo 'PermitRootLogin no'; \
     echo 'PasswordAuthentication yes'; \
     echo 'Subsystem sftp /usr/lib/openssh/sftp-server'; \
-  ) > /etc/ssh/sshd_config_test_clion \
+    echo 'Port 50000'; \
+  ) > /etc/ssh/sshd_config.d/umrt.conf \
   && mkdir /run/sshd
 
-ENTRYPOINT /usr/sbin/sshd -e -f /etc/ssh/sshd_config_test_clion && /bin/bash
+ENTRYPOINT /usr/sbin/sshd && /bin/bash
