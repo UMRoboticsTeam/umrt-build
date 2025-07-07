@@ -4,8 +4,6 @@ RUN echo "deb [arch=amd64,arm64 signed-by=/etc/apt/keyrings/umrt.asc] https://ra
 
 RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf --mount=type=secret,id=apt_pubkey,target=/etc/apt/keyrings/umrt.asc,mode=0644 \
     sudo apt update && sudo apt install -y \
-        ros-humble-ros2-control \
-        ros-humble-ros2-controllers \
         gdb \
         gdbserver \
         libboost-all-dev \
@@ -21,8 +19,10 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         python3-doxypypy \
         doxygen-awesome-css \
         ros-humble-ros2-socketcan \
-        openframeworksarduino=0.0.3 \
-        umrt-arm-firmware-lib=0.4.0 \
+        libopenblas-dev \
+        ros-humble-ros2-control \
+        ros-humble-ros2-controllers \
+        ros-humble-moveit \
         ros-humble-foxglove-msgs \
         ros-humble-depthai \
         ros-humble-depthai-ros-msgs \
@@ -31,6 +31,8 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-vision-msgs \
         ros-humble-depth-image-proc \
         ros-humble-xacro \
+        openframeworksarduino=0.0.3 \
+        umrt-arm-firmware-lib=0.4.0 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sudo rm -f /etc/apt/sources.list.d/umrt_source.list
