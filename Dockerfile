@@ -7,7 +7,6 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         gdb \
         gdbserver \
         libboost-all-dev \
-        ros-humble-xacro \
         less \
         python3-curtsies \
         python-is-python3 \
@@ -31,6 +30,9 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-vision-msgs \
         ros-humble-depth-image-proc \
         ros-humble-xacro \
+        ros-humble-joy \
+	    ros-humble-joy-teleop \
+	    ros-humble-teleop-twist-joy \
         openframeworksarduino=0.0.3 \
         umrt-arm-firmware-lib=0.4.0 \
     && rm -rf /var/lib/apt/lists/*
