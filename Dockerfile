@@ -17,6 +17,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         doxygen \
         python3-doxypypy \
         doxygen-awesome-css \
+	libi2c-dev \
         ros-humble-ros2-socketcan \
         libopenblas-dev \
         ros-humble-ros2-control \
