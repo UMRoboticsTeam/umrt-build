@@ -7,7 +7,6 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         gdb \
         gdbserver \
         libboost-all-dev \
-        ros-humble-xacro \
         less \
         python3-curtsies \
         python-is-python3 \
@@ -33,6 +32,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-xacro \
         openframeworksarduino=0.0.3 \
         umrt-arm-firmware-lib=0.4.0 \
+        ros-humble-umrt-project-perry-description=0.0.6-0jammy \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sudo rm -f /etc/apt/sources.list.d/umrt_source.list
