@@ -32,7 +32,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-depth-image-proc \
         ros-humble-xacro \
         ffmpeg \
-        ros-humble-rmw2-fastrtps-cpp \
+        ros-humble-rmw-fastrtps-cpp \
         ros-humble-v4l2-camera \
         ros-humble-image-transport \
         ros-humble-image-transport-plugins \
