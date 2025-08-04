@@ -17,7 +17,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         doxygen \
         python3-doxypypy \
         doxygen-awesome-css \
-	libi2c-dev \
+        libi2c-dev \
         ros-humble-ros2-socketcan \
         libopenblas-dev \
         ros-humble-ros2-control \
@@ -31,6 +31,9 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-vision-msgs \
         ros-humble-depth-image-proc \
         ros-humble-xacro \
+        ros-humble-image-transport \
+        ros-humble-image-transport-plugins \
+        ros-humble-ffmpeg-image-transport \
         openframeworksarduino=0.0.3 \
         umrt-arm-firmware-lib=0.4.0 \
         ros-humble-umrt-project-perry-description=0.0.6-0jammy \
