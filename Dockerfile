@@ -38,6 +38,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-image-transport-plugins \
         ros-humble-ffmpeg-image-transport \
         openframeworksarduino=0.0.3 \
+	umrt-imu-interface=0.0.3 \
         umrt-arm-firmware-lib=0.4.0 \
         ros-humble-umrt-project-perry-description=0.0.6-0jammy \
     && rm -rf /var/lib/apt/lists/*
