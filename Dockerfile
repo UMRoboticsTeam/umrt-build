@@ -38,6 +38,8 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-image-transport-plugins \
         ros-humble-ffmpeg-image-transport \
         ros-humble-joint-state-publisher \
+        ros-humble-ros-babel-fish \
+        python3-pip \
         openframeworksarduino=0.0.3 \
         umrt-imu-interface=0.0.4 \
         umrt-geiger-interface=0.1.3 \
@@ -46,3 +48,5 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
     && rm -rf /var/lib/apt/lists/*
 
 RUN sudo rm -f /etc/apt/sources.list.d/umrt_source.list
+
+RUN sudo pip install cantools

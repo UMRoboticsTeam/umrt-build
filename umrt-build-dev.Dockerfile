@@ -7,6 +7,8 @@ RUN sudo apt update && sudo apt install -y \
 	ssh \
 	rsync \
     nano \
+    can-utils \
+    iproute2 \
  && rm -rf /var/lib/apt/lists/*
 
 # Setup user for SSH
