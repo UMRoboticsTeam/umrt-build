@@ -45,6 +45,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         umrt-geiger-interface=0.1.3 \
         umrt-arm-firmware-lib=0.4.0 \
         ros-humble-umrt-project-perry-description=0.0.9-0jammy \
+        ros-humble-can-dbc-parser=1.2.4-0jammy \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sudo rm -f /etc/apt/sources.list.d/umrt_source.list
