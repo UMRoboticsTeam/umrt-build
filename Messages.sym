@@ -1,0 +1,419 @@
+FormatVersion=6.0 // Do not edit this line!
+Title="UMRT"
+IDMask=FFFF00h
+
+{ENUMS}
+Enum=Assigned_Source_Addresses(128="ROS Controller", 104..111="CAN-PPM Gateways", 236="Embedded Controller")
+Enum=Battery_Charge_State(0="Stationary", 1="Charging", 2="Discharging")
+Enum=Balance_State(0="Closed", 1="Open")
+
+{SIGNALS}
+Sig=Left_Angular_Velocity unsigned 16 /u:rpm /f:0.125 /o:-4016 /min:0 /max:4015.875 /slot:494
+Sig=Right_Angular_Velocity unsigned 16 /u:rpm /f:0.125 /o:-4016 /min:0 /max:4015.875 /slot:494 // slot:494
+Sig=Message_Counter unsigned 8 /u:count /max:250 /slot:129
+Sig=CRC unsigned 8 /u:statevalue /slot:93
+Sig=Index unsigned 8 /u:index /max:250 /slot:129
+Sig=Set_Angle unsigned 16 /u:% /f:0.0015625 /max:100.3984375
+Sig=Left_Disagreement unsigned 8 /u:rpm /f:0.25 /o:-31.25 /min:0 /max:31.25 /slot:494
+Sig=Right_Disagreement unsigned 8 /u:rpm /f:0.25 /o:-31.25 /min:0 /max:31.25 /slot:494
+Sig=Reserved_8 raw 8
+Sig=Reserved_16 raw 16
+Sig=Reserved_24 raw 24
+Sig=Reserved_64 raw 64
+Sig=Cumulative_Total_Voltage unsigned 16 /u:V /f:0.1
+Sig=Gather_Total_Voltage unsigned 16 /u:V /f:0.1
+Sig=Curent unsigned 16 /u:A /f:0.1 /o:-3000
+Sig=SoC unsigned 16 /u:% /f:0.1
+Sig=Max_Cell_Voltage unsigned 16 /u:V /f:0.001 // Highest current cell voltage
+Sig=Max_Cell_Voltage_Id unsigned 8 /u:index // Index of cell which has highest voltage
+Sig=Min_Cell_Voltage unsigned 16 /u:V /f:0.001 // Lowest current cell voltage
+Sig=Min_Cell_Voltage_Id unsigned 8 /u:index // Index of cell which has lowest voltage
+Sig=Max_Temp unsigned 8 /u:degC /o:-40 /min:0 // Highest current cell temperature
+Sig=Min_Temp unsigned 8 /u:degC /o:-40 /min:0 // Lowest current cell temperature
+Sig=Min_Temp_Id unsigned 8 /u:index // Index of cell which has lowest temperature
+Sig=Max_Temp_Id unsigned 8 /u:index // Index of cell which has highest temperature
+Sig=BMS_State Battery_Charge_State 8
+Sig=Charging_FET_On unsigned 8 /u:bool
+Sig=Discharging_FET_On unsigned 8 /u:bool
+Sig=Cycles unsigned 8 /u:count
+Sig=Remaining_Capacity unsigned 32 /u:Ah /f:0.001 /max:255
+Sig=Cell_Count unsigned 8 /u:count
+Sig=Temp_Sensor_Count unsigned 8 /u:count
+Sig=Charger_Status unsigned 8 /u:bool
+Sig=Load_Status unsigned 8 /u:bool
+Sig=DI_1 bit /u:bool
+Sig=DI_2 bit /u:bool
+Sig=DI_4 bit /u:bool
+Sig=DI_3 bit /u:bool
+Sig=DO_1 bit /u:bool
+Sig=DO_2 bit /u:bool
+Sig=DO_4 bit /u:bool
+Sig=DO_3 bit /u:bool
+Sig=Reserved_32 raw 32
+Sig=Frame_Index unsigned 8 /u:index /max:254
+Sig=Voltage_N1 unsigned 16 /u:V /f:0.001 // Voltage of cell with index Frame_Index * 3 + 1
+Sig=Voltage_N2 unsigned 16 /u:V /f:0.001 // Voltage of cell with index Frame_Index * 3 + 2
+Sig=Voltage_N0 unsigned 16 /u:V /f:0.001 // Voltage of cell with index Frame_Index * 3 + 0
+Sig=Temp_N0 unsigned 8 /u:degC // Temperature of cell with index Frame_Index * 7 + 0
+Sig=Temp_N1 unsigned 8 /u:degC // Temperature of cell with index Frame_Index * 7 + 1
+Sig=Temp_N3 unsigned 8 /u:degC // Temperature of cell with index Frame_Index * 7 + 3
+Sig=Temp_N2 unsigned 8 /u:degC // Temperature of cell with index Frame_Index * 7 + 2
+Sig=Temp_N5 unsigned 8 /u:degC // Temperature of cell with index Frame_Index * 7 + 5
+Sig=Temp_N4 unsigned 8 /u:degC // Temperature of cell with index Frame_Index * 7 + 4
+Sig=Temp_N6 unsigned 8 /u:degC // Temperature of cell with index Frame_Index * 7 + 6
+Sig=Cell_Balance_0 bit /u:bool /e:Balance_State
+Sig=Cell_Balance_1 bit /u:bool /e:Balance_State
+Sig=Cell_Balance_3 bit /u:bool /e:Balance_State
+Sig=Cell_Balance_2 bit /u:bool /e:Balance_State
+Sig=Cell_Balance_5 bit /u:bool /e:Balance_State
+Sig=Cell_Balance_4 bit /u:bool /e:Balance_State
+Sig=Cell_Overvoltage_Fault bit /u:bool
+Sig=Cell_Overvoltage_Critical_Fault bit /u:bool
+Sig=Cell_Undervoltage_Fault bit /u:bool
+Sig=Cell_Undervoltage_Critical_Fault bit /u:bool
+Sig=Pack_Overvoltage_Fault bit /u:bool
+Sig=Pack_Overvoltage_Critical_Fault bit /u:bool
+Sig=Pack_Undervoltage_Critical_Fault bit /u:bool
+Sig=Pack_Undervoltage_Fault bit /u:bool
+Sig=Charge_Over_Temp_Fault bit /u:bool
+Sig=Charge_Over_Temp_Critical_Fault bit /u:bool
+Sig=Charge_Under_Temp_Fault bit /u:bool
+Sig=Charge_Under_Temp_Critical_Fault bit /u:bool
+Sig=Dischg_Over_Temp_Critical_Fault bit /u:bool
+Sig=Dischg_Over_Temp_Fault bit /u:bool
+Sig=Dischg_Under_Temp_Fault bit /u:bool
+Sig=Dischg_Under_Temp_Critical_Fault bit /u:bool
+Sig=Charge_Over_Curr_Critical_Fault bit /u:bool
+Sig=Charge_Over_Curr_Fault_ bit /u:bool
+Sig=Dischg_Over_Curr_Critical_Fault bit /u:bool
+Sig=Dischg_Over_Curr_Fault bit /u:bool
+Sig=SoC_Over_Fault bit /u:bool
+Sig=SoC_Over_Critical_Fault bit /u:bool
+Sig=SoC_Under_Fault bit /u:bool
+Sig=SoC_Under_Critical_Fault bit /u:bool
+Sig=Temp_Delta_Fault bit /u:bool
+Sig=Temp_Delta_Critical_Fault bit /u:bool
+Sig=Volt_Delta_Critical_Fault bit /u:bool
+Sig=Volt_Delta_Fault bit /u:bool
+Sig=Charge_FET_Unknown_Temp_Fault bit /u:bool
+Sig=Charge_FET_Over_Temp_Fault bit /u:bool
+Sig=Dischg_FET_Adhesion_Fault bit /u:bool
+Sig=Dischg_FET_Over_Temp_Fault bit /u:bool
+Sig=Dischg_FET_Unknown_Tmp_Fault bit /u:bool
+Sig=Charge_FET_Adhesion_Fault bit /u:bool
+Sig=Charge_FET_Open_Circ_Fault bit /u:bool
+Sig=AFE_Fault bit /u:bool // Active front end
+Sig=Cell_Voltage_Sensor_Fault bit /u:bool
+Sig=Cell_Temp_Sensor_Fault bit /u:bool
+Sig=EEPROM_Fault bit /u:bool
+Sig=RTC_Fault bit /u:bool
+Sig=Precharge_Fault bit /u:bool
+Sig=Comms_Fault bit /u:bool
+Sig=Internal_Comms_Fault bit /u:bool
+Sig=Current_Sensor_Fault bit /u:bool
+Sig=Pack_Voltage_Sensor_Fault bit /u:bool
+Sig=Short_Circuit_Protection_Fault bit /u:bool
+Sig=Fault_Code unsigned 8
+Sig=Dischg_FET_Open_Circ_Fault_Copy bit /u:bool
+Sig=Charging_Forbidden_Fault bit /u:bool
+Sig=Reserved_4b unsigned 4
+Sig=Reserved_4 unsigned 4
+
+{SENDRECEIVE}
+
+[Rover_Speed_Control]
+ID=00FFE980h
+Type=Extended
+Len=8
+Sig=Left_Angular_Velocity 0
+Sig=Right_Angular_Velocity 16
+Sig=Message_Counter 48
+Sig=CRC 56
+Sig=Reserved_16 32
+
+[Servo_Control_0]
+ID=00EF6800h
+Type=Extended
+Len=8
+Sig=Index 0
+Sig=Set_Angle 8
+Sig=Message_Counter 48
+Sig=CRC 56
+Sig=Reserved_24 24
+
+[Servo_Control_1]
+ID=00EF6900h
+Type=Extended
+Len=8
+Sig=Index 0
+Sig=Set_Angle 8
+Sig=Message_Counter 48
+Sig=CRC 56
+Sig=Reserved_24 24
+
+[Servo_Control_2]
+ID=00EF6A00h
+Type=Extended
+Len=8
+Sig=Index 0
+Sig=Set_Angle 8
+Sig=Message_Counter 48
+Sig=CRC 56
+Sig=Reserved_24 24
+
+[Servo_Control_3]
+ID=00EF6B00h
+Type=Extended
+Len=8
+Sig=Index 0
+Sig=Set_Angle 8
+Sig=Message_Counter 48
+Sig=CRC 56
+Sig=Reserved_24 24
+
+[Servo_Control_4]
+ID=00EF6C00h
+Type=Extended
+Len=8
+Sig=Index 0
+Sig=Set_Angle 8
+Sig=Message_Counter 48
+Sig=CRC 56
+Sig=Reserved_24 24
+
+[Servo_Control_5]
+ID=00EF6D00h
+Type=Extended
+Len=8
+Sig=Index 0
+Sig=Set_Angle 8
+Sig=Message_Counter 48
+Sig=CRC 56
+Sig=Reserved_24 24
+
+[Servo_Control_6]
+ID=00EF6E00h
+Type=Extended
+Len=8
+Sig=Index 0
+Sig=Set_Angle 8
+Sig=Message_Counter 48
+Sig=CRC 56
+Sig=Reserved_24 24
+
+[Servo_Control_7]
+ID=00EF6F00h
+Type=Extended
+Len=8
+Sig=Index 0
+Sig=Set_Angle 8
+Sig=Message_Counter 48
+Sig=CRC 56
+Sig=Reserved_24 24
+
+[Rover_Speed_Feedback]
+ID=00FFEAECh
+Type=Extended
+Len=8
+Sig=Left_Angular_Velocity 0
+Sig=Right_Angular_Velocity 16
+Sig=Left_Disagreement 32
+Sig=Right_Disagreement 40
+Sig=Message_Counter 48
+Sig=CRC 56
+
+[BMS_SoC_Req]
+ID=00900140h
+Type=Extended
+Len=8
+Sig=Reserved_64 0
+
+[BMS_SoC]
+ID=00904001h
+Type=Extended
+Len=8
+Sig=Cumulative_Total_Voltage 0
+Sig=Gather_Total_Voltage 16
+Sig=Curent 32
+Sig=SoC 48
+
+[BMS_Voltage_Req]
+ID=00910140h
+Type=Extended
+Len=8
+Sig=Reserved_64 0
+
+[BMS_Voltage]
+ID=00914001h
+Type=Extended
+Len=8
+
+[BMS_Temp_Req]
+ID=00920140h
+Type=Extended
+Len=8
+Sig=Reserved_64 0
+
+[BMS_FET_Status_Req]
+ID=00930140h
+Type=Extended
+Len=8
+Sig=Reserved_64 0
+
+[BMS_Info_Req]
+ID=00940140h
+Type=Extended
+Len=8
+Sig=Reserved_64 0
+
+[BMS_Cell_Volt_Req]
+ID=00950140h
+Type=Extended
+Len=8
+Sig=Reserved_64 0
+
+[BMS_Balance_State_Req]
+ID=00970140h
+Type=Extended
+Len=8
+Sig=Reserved_64 0
+
+[BMS_Cell_Temp_Req]
+ID=00960140h
+Type=Extended
+Len=8
+Sig=Reserved_64 0
+
+[BMS_Faults]
+ID=00984001h
+Type=Extended
+Len=8
+Sig=Cell_Overvoltage_Fault 0
+Sig=Cell_Overvoltage_Critical_Fault 1
+Sig=Cell_Undervoltage_Fault 2
+Sig=Cell_Undervoltage_Critical_Fault 3
+Sig=Pack_Overvoltage_Fault 4
+Sig=Pack_Overvoltage_Critical_Fault 5
+Sig=Pack_Undervoltage_Fault 6
+Sig=Pack_Undervoltage_Critical_Fault 7
+Sig=Charge_Over_Temp_Fault 8
+Sig=Charge_Over_Temp_Critical_Fault 9
+Sig=Charge_Under_Temp_Fault 10
+Sig=Charge_Under_Temp_Critical_Fault 11
+Sig=Dischg_Over_Temp_Fault 12
+Sig=Dischg_Over_Temp_Critical_Fault 13
+Sig=Dischg_Under_Temp_Fault 14
+Sig=Dischg_Under_Temp_Critical_Fault 15
+Sig=Charge_Over_Curr_Fault_ 16
+Sig=Charge_Over_Curr_Critical_Fault 17
+Sig=Dischg_Over_Curr_Fault 18
+Sig=Dischg_Over_Curr_Critical_Fault 19
+Sig=SoC_Over_Fault 20
+Sig=SoC_Over_Critical_Fault 21
+Sig=SoC_Under_Fault 22
+Sig=SoC_Under_Critical_Fault 23
+Sig=Volt_Delta_Fault 24
+Sig=Volt_Delta_Critical_Fault 25
+Sig=Temp_Delta_Fault 26
+Sig=Temp_Delta_Critical_Fault 27
+Sig=Charge_FET_Over_Temp_Fault 32
+Sig=Dischg_FET_Over_Temp_Fault 33
+Sig=Charge_FET_Unknown_Temp_Fault 34
+Sig=Dischg_FET_Unknown_Tmp_Fault 35
+Sig=Charge_FET_Adhesion_Fault 36
+Sig=Dischg_FET_Adhesion_Fault 37
+Sig=Charge_FET_Open_Circ_Fault 38
+Sig=Dischg_FET_Open_Circ_Fault_Copy 39
+Sig=AFE_Fault 40
+Sig=Cell_Voltage_Sensor_Fault 41
+Sig=Cell_Temp_Sensor_Fault 42
+Sig=EEPROM_Fault 43
+Sig=RTC_Fault 44
+Sig=Comms_Fault 46
+Sig=Precharge_Fault 45
+Sig=Internal_Comms_Fault 47
+Sig=Current_Sensor_Fault 48
+Sig=Pack_Voltage_Sensor_Fault 49
+Sig=Short_Circuit_Protection_Fault 50
+Sig=Charging_Forbidden_Fault 51
+Sig=Fault_Code 56
+Sig=Reserved_4b 52
+Sig=Reserved_4 28
+
+[BMS_Temp]
+ID=00924001h
+Type=Extended
+Len=8
+Sig=Max_Temp 0
+Sig=Max_Temp_Id 8
+Sig=Min_Temp 16
+Sig=Min_Temp_Id 24
+
+[BMS_FET_Status]
+ID=00934001h
+Type=Extended
+Len=8
+Sig=BMS_State 0
+Sig=Charging_FET_On 8
+Sig=Discharging_FET_On 16
+Sig=Cycles 24
+Sig=Remaining_Capacity 32
+
+[BMS_Info]
+ID=00944001h
+Type=Extended
+Len=8
+Sig=Cell_Count 0
+Sig=Temp_Sensor_Count 8
+Sig=Charger_Status 16
+Sig=Load_Status 24
+Sig=DI_1 32
+Sig=DI_2 33
+Sig=DI_3 34
+Sig=DI_4 35
+Sig=DO_1 36
+Sig=DO_2 37
+Sig=DO_3 38
+Sig=DO_4 39
+Sig=Reserved_24 40
+
+[BMS_Cell_Volt]
+ID=00954001h
+Type=Extended
+Len=8
+Sig=Frame_Index 0
+Sig=Voltage_N0 8
+Sig=Voltage_N1 24
+Sig=Voltage_N2 40
+Sig=Reserved_8 56
+
+[BMS_Cell_Temp]
+ID=00964001h
+Type=Extended
+Len=8
+Sig=Frame_Index 0
+Sig=Temp_N0 8
+Sig=Temp_N1 16
+Sig=Temp_N2 24
+Sig=Temp_N3 32
+Sig=Temp_N4 40
+Sig=Temp_N5 48
+Sig=Temp_N6 56
+
+[BMS_Balance_State]
+ID=00974001h
+Type=Extended
+Len=8
+Sig=Cell_Balance_0 0
+Sig=Cell_Balance_1 1
+Sig=Cell_Balance_2 2
+Sig=Cell_Balance_3 3
+Sig=Cell_Balance_4 4
+Sig=Cell_Balance_5 5
+Sig=Reserved_16 48
+
+[BMS_Faults_Req]
+ID=00980140h
+Type=Extended
+Len=8
+Sig=Reserved_64 0
