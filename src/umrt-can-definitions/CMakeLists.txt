@@ -37,9 +37,9 @@ execute_process(
         "${RESOLVED_SYMBOL_FILE}" "${GENERATED_CODE_BASENAME}" "${GENERATED_CODE_FOLDER}"
 )
 
-# Tell CMake that it needs to reconfigure if the DBC file changes
+# Tell CMake that it needs to reconfigure if the symbol file changes
 # This is because the msgs list (and the rosidl target list) is generated at configure time not build time
-# So if a build notices that the DBC has changed, then that means we need new msgs, and thus we need to reconfigure
+# So if a build notices that the symbol file has changed, then that means we need new msgs, and thus we need to reconfigure
 set_property(DIRECTORY APPEND PROPERTY
         CMAKE_CONFIGURE_DEPENDS "${RESOLVED_SYMBOL_FILE}"
 )

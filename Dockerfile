@@ -26,9 +26,10 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-ros2-controllers \
         ros-humble-moveit \
         ros-humble-foxglove-msgs \
-        ros-humble-depthai \
-        ros-humble-depthai-ros-msgs \
-        ros-humble-depthai-bridge \
+        ros-humble-foxglove-compressed-video-transport \
+        ros-humble-depthai-v3 \
+        ros-humble-depthai-ros-msgs-v3 \
+        ros-humble-depthai-bridge-v3 \
         ros-humble-depthai-descriptions \
         ros-humble-vision-msgs \
         ros-humble-depth-image-proc \
@@ -38,7 +39,9 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-image-transport \
         ros-humble-image-transport-plugins \
         ros-humble-ffmpeg-image-transport \
+        ros-humble-ffmpeg-image-transport-msgs \
         ros-humble-joint-state-publisher \
+        ros-humble-aruco-opencv \
         openframeworksarduino=0.0.3 \
         umrt-imu-interface=0.0.4 \
         umrt-geiger-interface=0.1.3 \
