@@ -24,9 +24,9 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-ros2-controllers \
         ros-humble-moveit \
         ros-humble-foxglove-msgs \
-        ros-humble-depthai \
-        ros-humble-depthai-ros-msgs \
-        ros-humble-depthai-bridge \
+        ros-humble-depthai-v3 \
+        ros-humble-depthai-ros-msgs-v3 \
+        ros-humble-depthai-bridge-v3 \
         ros-humble-depthai-descriptions \
         ros-humble-vision-msgs \
         ros-humble-depth-image-proc \
@@ -37,6 +37,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-image-transport \
         ros-humble-image-transport-plugins \
         ros-humble-ffmpeg-image-transport \
+        ros-humble-ffmpeg-image-transport-msgs \
         ros-humble-joint-state-publisher \
         openframeworksarduino=0.0.3 \
         umrt-imu-interface=0.0.4 \
@@ -44,6 +45,8 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         umrt-arm-firmware-lib=0.5.0 \
         ros-humble-umrt-project-perry-description=0.0.9-0jammy \
         umrt-arm-encoder-driver=2.0.0 \
+        ros-humble-aruco-opencv \ 
+        ros-humble-foxglove-compressed-video-transport \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sudo rm -f /etc/apt/sources.list.d/umrt_source.list
