@@ -1,9 +1,8 @@
 FormatVersion=6.0 // Do not edit this line!
 Title="UMRT"
-IDMask=FFFF00h
 
 {ENUMS}
-Enum=Assigned_Source_Addresses(128="ROS Controller", 104..111="CAN-PPM Gateways", 236="Embedded Controller")
+Enum=Assigned_Source_Addresses(128="ROS Controller", 104="CAN-PPM Gateways", 105="CAN-PPM Gateways", 106="CAN-PPM Gateways",107="CAN-PPM Gateways",108="CAN-PPM Gateways",109="CAN-PPM Gateways",110="CAN-PPM Gateways",111="CAN-PPM Gateways",236="Embedded Controller")
 Enum=Battery_Charge_State(0="Stationary", 1="Charging", 2="Discharging")
 Enum=Balance_State(0="Closed", 1="Open")
 

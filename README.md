@@ -36,3 +36,14 @@ Assuming your workspace is located at `~/workspace` and you would like to access
 `docker run --rm -it --name umrt-arm -v "~/workspace":/workspace -p 12345:50000 --pull=always ghcr.io/umroboticsteam/umrt-build-dev:main`  
 This always checks for and downloads the latest image before starting.
 If a specific version is wanted, such as `v0.0.20`, simply change `umrt-build-dev:main` to `umrt-build-dev:v0.0.20`.
+
+## Auxillary packages
+This repo also contains the source of authority for CAN messages within the UMRT system, `Messages.sym`.
+For every Docker build, these message definitions are used to generate C code for encoding and decoding CAN messages.
+This C code is compiled into the `umrt-can-definitions` library, and installed into the image.
+The goal behind this is that in the near future [ros2_j1939_babbler](https://github.com/UMRoboticsTeam/ros2_j1939_babbler/)
+   will be used for all CAN interactions, and will be recompiled with every `umrt-build` build like `umrt-can-definitions` is.
+This will guarantee that there will never be a mismatch between ROS software and the current CAN message definitions.
+
+A future effort will be to use the same mechanism for embedded controller firmware.
+This will likely require developers to begin using dev containers as part of their embedded firmware development workflow. 

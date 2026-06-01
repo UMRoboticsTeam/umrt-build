@@ -11,15 +11,17 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         python3-curtsies \
         python-is-python3 \
         python3-bloom \
+        python3-pip \
+        python3-doxypypy \
         fakeroot \
         dpkg-dev \
         debhelper \
         doxygen \
-        python3-doxypypy \
         doxygen-awesome-css \
         libi2c-dev \
-        ros-humble-ros2-socketcan \
+        ffmpeg \
         libopenblas-dev \
+        ros-humble-ros2-socketcan \
         ros-humble-ros2-control \
         ros-humble-ros2-controllers \
         ros-humble-moveit \
@@ -31,7 +33,6 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-vision-msgs \
         ros-humble-depth-image-proc \
         ros-humble-xacro \
-        ffmpeg \
         ros-humble-rmw-fastrtps-cpp \
         ros-humble-v4l2-camera \
         ros-humble-image-transport \
@@ -45,5 +46,13 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-umrt-project-perry-description=0.0.9-0jammy \
         umrt-arm-encoder-driver=2.0.0 \
     && rm -rf /var/lib/apt/lists/*
+
+RUN sudo pip3 install cantools
+
+COPY . /ws
+
+RUN cd /ws/src && ./build_scripts.sh
+
+RUN sudo rm -rf /src
 
 RUN sudo rm -f /etc/apt/sources.list.d/umrt_source.list
