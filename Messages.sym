@@ -19,7 +19,7 @@ Var=Left_Angular_Velocity unsigned 0,16 /u:rpm /f:0.125 /o:-4016 /min:0 /max:401
 Var=Right_Angular_Velocity unsigned 16,16 /u:rpm /f:0.125 /o:-4016 /min:0 /max:4015.875 /slot:494 // slot:494
 Var=Message_Counter unsigned 48,8 /u:count /max:250 /slot:129
 Var=CRC unsigned 56,8 /u:statevalue /slot:93
-Var=Reserved_16 raw 32,16
+Var=Reserved raw 32,16
 
 [Servo_Control_0]
 ID=00EF6800h
@@ -29,7 +29,7 @@ Var=Index unsigned 0,8 /u:index /max:250 /slot:129
 Var=Set_Angle unsigned 8,16 /u:% /f:0.0015625 /max:100.3984375
 Var=Message_Counter unsigned 48,8 /u:count /max:250 /slot:129
 Var=CRC unsigned 56,8 /u:statevalue /slot:93
-Var=Reserved_24 raw 24,24
+Var=Reserved raw 24,24
 
 [Servo_Control_1]
 ID=00EF6900h
@@ -39,7 +39,7 @@ Var=Index unsigned 0,8 /u:index /max:250 /slot:129
 Var=Set_Angle unsigned 8,16 /u:% /f:0.0015625 /max:100.3984375
 Var=Message_Counter unsigned 48,8 /u:count /max:250 /slot:129
 Var=CRC unsigned 56,8 /u:statevalue /slot:93
-Var=Reserved_24 raw 24,24
+Var=Reserved raw 24,24
 
 [Servo_Control_2]
 ID=00EF6A00h
@@ -49,7 +49,7 @@ Var=Index unsigned 0,8 /u:index /max:250 /slot:129
 Var=Set_Angle unsigned 8,16 /u:% /f:0.0015625 /max:100.3984375
 Var=Message_Counter unsigned 48,8 /u:count /max:250 /slot:129
 Var=CRC unsigned 56,8 /u:statevalue /slot:93
-Var=Reserved_24 raw 24,24
+Var=Reserved raw 24,24
 
 [Servo_Control_3]
 ID=00EF6B00h
@@ -59,7 +59,7 @@ Var=Index unsigned 0,8 /u:index /max:250 /slot:129
 Var=Set_Angle unsigned 8,16 /u:% /f:0.0015625 /max:100.3984375
 Var=Message_Counter unsigned 48,8 /u:count /max:250 /slot:129
 Var=CRC unsigned 56,8 /u:statevalue /slot:93
-Var=Reserved_24 raw 24,24
+Var=Reserved raw 24,24
 
 [Servo_Control_4]
 ID=00EF6C00h
@@ -69,7 +69,7 @@ Var=Index unsigned 0,8 /u:index /max:250 /slot:129
 Var=Set_Angle unsigned 8,16 /u:% /f:0.0015625 /max:100.3984375
 Var=Message_Counter unsigned 48,8 /u:count /max:250 /slot:129
 Var=CRC unsigned 56,8 /u:statevalue /slot:93
-Var=Reserved_24 raw 24,24
+Var=Reserved raw 24,24
 
 [Servo_Control_5]
 ID=00EF6D00h
@@ -79,7 +79,7 @@ Var=Index unsigned 0,8 /u:index /max:250 /slot:129
 Var=Set_Angle unsigned 8,16 /u:% /f:0.0015625 /max:100.3984375
 Var=Message_Counter unsigned 48,8 /u:count /max:250 /slot:129
 Var=CRC unsigned 56,8 /u:statevalue /slot:93
-Var=Reserved_24 raw 24,24
+Var=Reserved raw 24,24
 
 [Servo_Control_6]
 ID=00EF6E00h
@@ -89,7 +89,7 @@ Var=Index unsigned 0,8 /u:index /max:250 /slot:129
 Var=Set_Angle unsigned 8,16 /u:% /f:0.0015625 /max:100.3984375
 Var=Message_Counter unsigned 48,8 /u:count /max:250 /slot:129
 Var=CRC unsigned 56,8 /u:statevalue /slot:93
-Var=Reserved_24 raw 24,24
+Var=Reserved raw 24,24
 
 [Servo_Control_7]
 ID=00EF6F00h
@@ -99,7 +99,7 @@ Var=Index unsigned 0,8 /u:index /max:250 /slot:129
 Var=Set_Angle unsigned 8,16 /u:% /f:0.0015625 /max:100.3984375
 Var=Message_Counter unsigned 48,8 /u:count /max:250 /slot:129
 Var=CRC unsigned 56,8 /u:statevalue /slot:93
-Var=Reserved_24 raw 24,24
+Var=Reserved raw 24,24
 
 [Rover_Speed_Feedback]
 ID=00FFEAECh
@@ -116,7 +116,7 @@ Var=CRC unsigned 56,8 /u:statevalue /slot:93
 ID=00900140h
 Type=Extended
 Len=8
-Var=Reserved_64 raw 0,64
+Var=Reserved raw 0,64
 
 [BMS_SoC]
 ID=00904001h
@@ -131,7 +131,7 @@ Var=SoC unsigned 48,16 /u:% /f:0.1
 ID=00910140h
 Type=Extended
 Len=8
-Var=Reserved_64 raw 0,64
+Var=Reserved raw 0,64
 
 [BMS_Voltage]
 ID=00914001h
@@ -142,37 +142,37 @@ Len=8
 ID=00920140h
 Type=Extended
 Len=8
-Var=Reserved_64 raw 0,64
+Var=Reserved raw 0,64
 
 [BMS_FET_Status_Req]
 ID=00930140h
 Type=Extended
 Len=8
-Var=Reserved_64 raw 0,64
+Var=Reserved raw 0,64
 
 [BMS_Info_Req]
 ID=00940140h
 Type=Extended
 Len=8
-Var=Reserved_64 raw 0,64
+Var=Reserved raw 0,64
 
 [BMS_Cell_Volt_Req]
 ID=00950140h
 Type=Extended
 Len=8
-Var=Reserved_64 raw 0,64
+Var=Reserved raw 0,64
 
 [BMS_Balance_State_Req]
 ID=00970140h
 Type=Extended
 Len=8
-Var=Reserved_64 raw 0,64
+Var=Reserved raw 0,64
 
 [BMS_Cell_Temp_Req]
 ID=00960140h
 Type=Extended
 Len=8
-Var=Reserved_64 raw 0,64
+Var=Reserved raw 0,64
 
 [BMS_Faults]
 ID=00984001h
@@ -227,8 +227,8 @@ Var=Pack_Voltage_Sensor_Fault bit 49,1 /u:bool
 Var=Short_Circuit_Protection_Fault bit 50,1 /u:bool
 Var=Charging_Forbidden_Fault bit 51,1 /u:bool
 Var=Fault_Code unsigned 56,8
-Var=Reserved_4b unsigned 52,4
-Var=Reserved_4 unsigned 28,4
+Var=Reserved_2 unsigned 52,4
+Var=Reserved unsigned 28,4
 
 [BMS_Temp]
 ID=00924001h
@@ -265,7 +265,7 @@ Var=DO_1 bit 36,1 /u:bool
 Var=DO_2 bit 37,1 /u:bool
 Var=DO_3 bit 38,1 /u:bool
 Var=DO_4 bit 39,1 /u:bool
-Var=Reserved_24 raw 40,24
+Var=Reserved raw 40,24
 
 [BMS_Cell_Volt]
 ID=00954001h
@@ -275,7 +275,7 @@ Var=Frame_Index unsigned 0,8 /u:index /max:254
 Var=Voltage_N0 unsigned 8,16 /u:V /f:0.001 // Voltage of cell with index Frame_Index * 3 + 0
 Var=Voltage_N1 unsigned 24,16 /u:V /f:0.001 // Voltage of cell with index Frame_Index * 3 + 1
 Var=Voltage_N2 unsigned 40,16 /u:V /f:0.001 // Voltage of cell with index Frame_Index * 3 + 2
-Var=Reserved_8 raw 56,8
+Var=Reserved raw 56,8
 
 [BMS_Cell_Temp]
 ID=00964001h
@@ -300,10 +300,10 @@ Var=Cell_Balance_2 bit 2,1 /u:bool /e:Balance_State
 Var=Cell_Balance_3 bit 3,1 /u:bool /e:Balance_State
 Var=Cell_Balance_4 bit 4,1 /u:bool /e:Balance_State
 Var=Cell_Balance_5 bit 5,1 /u:bool /e:Balance_State
-Var=Reserved_16 raw 48,16
+Var=Reserved raw 48,16
 
 [BMS_Faults_Req]
 ID=00980140h
 Type=Extended
 Len=8
-Var=Reserved_64 raw 0,64
+Var=Reserved raw 0,64
