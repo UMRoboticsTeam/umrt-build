@@ -43,7 +43,6 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-joint-state-publisher \
         ros-humble-aruco-opencv \
         openframeworksarduino=0.0.3 \
-        umrt-imu-interface=0.0.4 \
         umrt-geiger-interface=0.1.3 \
         umrt-arm-firmware-lib=0.5.0 \
         ros-humble-umrt-project-perry-description=0.0.9-0jammy \
