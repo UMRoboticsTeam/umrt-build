@@ -42,7 +42,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-ffmpeg-image-transport-msgs \
         ros-humble-joint-state-publisher \
         ros-humble-aruco-opencv \
-        ros-hunble-libstatistics-collector \
+        ros-humble-libstatistics-collector \
         openframeworksarduino=0.0.3 \
         umrt-imu-interface=0.0.4 \
         umrt-geiger-interface=0.1.3 \
