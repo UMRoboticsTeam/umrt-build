@@ -57,7 +57,7 @@ RUN sudo pip3 install cantools
 COPY . /ws
 
 RUN cd /ws/src && git clone https://github.com/UMRoboticsTeam/ros2_j1939_babbler.git && cd ros2_j1939_babbler && \
-    git checkout aabe65bf20e3866fb83e71a32b151e8d24a26dec
+    git checkout 9f278991904f11385385ef97891121b93618470c
 
 RUN cd /ws/src && ./build_scripts.sh
 
