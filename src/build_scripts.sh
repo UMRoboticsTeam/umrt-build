@@ -12,3 +12,7 @@ cd ../
 rm -r build
 cd ../
 
+# Compile and install ros2_j1939_babbler with our symbol definitions baked in
+cd ros2_j1939_babbler
+source /opt/ros/humble/setup.bash
+colcon build --merge-install --install-base /opt/ros/humble --cmake-args -DDBC_PATH=/opt/umrt-can-definitions/share/umrt-can-definitions/Messages.dbc

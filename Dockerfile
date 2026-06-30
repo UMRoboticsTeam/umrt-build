@@ -43,6 +43,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-joint-state-publisher \
         ros-humble-aruco-opencv \
         ros-humble-libstatistics-collector \
+        ros-humble-ros-babel-fish \
         openframeworksarduino=0.0.3 \
         umrt-imu-interface=0.0.4 \
         umrt-geiger-interface=0.1.3 \
@@ -55,8 +56,11 @@ RUN sudo pip3 install cantools
 
 COPY . /ws
 
+RUN cd /ws/src && git clone https://github.com/UMRoboticsTeam/ros2_j1939_babbler.git && cd ros2_j1939_babbler && \
+    git checkout aabe65bf20e3866fb83e71a32b151e8d24a26dec
+
 RUN cd /ws/src && ./build_scripts.sh
 
-RUN sudo rm -rf /src
+RUN sudo rm -rf /src /ws
 
 RUN sudo rm -f /etc/apt/sources.list.d/umrt_source.list
