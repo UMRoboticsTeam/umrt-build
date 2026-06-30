@@ -1,12 +1,14 @@
 cmake_minimum_required(VERSION 3.22.1)
 project(umrt-can-definitions)
 
-set(SYMBOL_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Messages.sym")
+set(SYMBOL_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Messages.sym" CACHE STRING "Symbol file to read for message definitions")
 set(GENERATED_CODE_BASENAME "messages")
+set(Python3_EXECUTABLE python3)
 
 set(GENERATED_CODE_FOLDER ${CMAKE_CURRENT_BINARY_DIR})
 set(GENERATED_HEADER ${GENERATED_CODE_FOLDER}/${GENERATED_CODE_BASENAME}.h)
 set(GENERATED_SOURCE ${GENERATED_CODE_FOLDER}/${GENERATED_CODE_BASENAME}.c)
+set(DBC_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/Messages.dbc)
 
 # ********** Setup CMake **********
 
@@ -35,6 +37,7 @@ get_filename_component(RESOLVED_SYMBOL_FILE "${SYMBOL_FILE}" REALPATH)
 execute_process(
         COMMAND ./generate_definitions_from_sym.sh
         "${RESOLVED_SYMBOL_FILE}" "${GENERATED_CODE_BASENAME}" "${GENERATED_CODE_FOLDER}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/TranslateToDbc.py" "${DBC_OUTPUT_PATH}"
 )
 
 # Tell CMake that it needs to reconfigure if the symbol file changes
@@ -45,7 +48,7 @@ set_property(DIRECTORY APPEND PROPERTY
 )
 
 install(
-        FILES "${RESOLVED_SYMBOL_FILE}"
+        FILES "${RESOLVED_SYMBOL_FILE}" "${DBC_OUTPUT_PATH}"
         DESTINATION share/${PROJECT_NAME}/
 )
 
@@ -105,7 +108,7 @@ install(FILES
 )
 
 install(
-        TARGETS ${lib_target} ${arduino_communication_test_target} ${mks_test_target} # These targets will be packaged
+        TARGETS ${lib_target}  # These targets will be packaged
         EXPORT ${PROJECT_NAME}Targets
         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
 )
