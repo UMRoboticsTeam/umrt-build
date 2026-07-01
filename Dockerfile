@@ -56,7 +56,9 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
 
 RUN sudo pip3 install cantools
 
-COPY . /ws
+COPY src /ws/src
+COPY Messages.sym /ws
+COPY version /ws
 
 RUN cd /ws/src && git clone https://github.com/UMRoboticsTeam/ros2_j1939_babbler.git && cd ros2_j1939_babbler && \
     git checkout 9f278991904f11385385ef97891121b93618470c
