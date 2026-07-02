@@ -61,7 +61,7 @@ COPY Messages.sym /ws
 COPY version /ws
 
 RUN cd /ws/src && git clone https://github.com/UMRoboticsTeam/ros2_j1939_babbler.git && cd ros2_j1939_babbler && \
-    git checkout baaea164b752f585401b3c577fe37eb0c4c9e833
+    git checkout ff2a88a03e6b6e99e09a63e8f0ec645090766742
 
 RUN cd /ws/src && ./build_scripts.sh
 
