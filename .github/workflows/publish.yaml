@@ -30,7 +30,7 @@ jobs:
     with:
       image_name: umroboticsteam/umrt-build-dev
       dockerfile: umrt-build-dev.Dockerfile
-      docker_build_args: "UMRT_BUILD_IMAGE_ID=${{ needs.build-umrt-build.outputs.image_tag }}"
+      docker_build_args: "UMRT_BUILD_IMAGE_ID=ghcr.io/umroboticsteam/umrt-build@${{ needs.build-umrt-build.outputs.image_tag }}"
       tag_repo_with_version: false
     secrets:
       APT_SERVER_NAME: raw.githubusercontent.com
