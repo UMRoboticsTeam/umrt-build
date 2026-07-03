@@ -11,7 +11,7 @@ jobs:
       attestations: write
       id-token: write
 
-    uses: UMRoboticsTeam/umrt-ci-cd/.github/workflows/docker-build.yaml@dont-emulate-docker-build
+    uses: UMRoboticsTeam/umrt-ci-cd/.github/workflows/docker-build.yaml@debug-docker
     secrets:
       APT_SERVER_NAME: raw.githubusercontent.com
       APT_SIGNING_PUBKEY: ${{ secrets.APT_SIGNING_PUBKEY }}
