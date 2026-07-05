@@ -7,6 +7,7 @@ RUN sudo apt update && sudo apt install -y \
 	ssh \
 	rsync \
     nano \
+    can-utils \
  && rm -rf /var/lib/apt/lists/*
 
 # Setup user for SSH
