@@ -33,9 +33,9 @@ Speak to someone on the team for the credentials.
 ## Launching the image
 
 Assuming your workspace is located at `~/workspace` and you would like to access the container through SSH on port `12345`, my preferred command to start a container is:  
-`docker run --rm -it --name umrt-arm -v "~/workspace":/workspace -p 12345:50000 --pull=always ghcr.io/umroboticsteam/umrt-build-dev:main`  
+`docker run --rm -it --name umrt-arm -v "~/workspace":/workspace -p 12345:50000 --pull=always ghcr.io/umroboticsteam/umrt-build-dev:latest`  
 This always checks for and downloads the latest image before starting.
-If a specific version is wanted, such as `v0.0.20`, simply change `umrt-build-dev:main` to `umrt-build-dev:v0.0.20`.
+If a specific version is wanted, such as `v0.0.20`, simply change `umrt-build-dev:latest` to `umrt-build-dev:v0.0.20`.
 
 ## Auxillary packages
 This repo also contains the source of authority for CAN messages within the UMRT system, `Messages.sym`.
