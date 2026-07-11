@@ -23,8 +23,10 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         libopenblas-dev \
         ros-humble-ros2-socketcan \
         ros-humble-ros2-control \
+        ros-humble-realtime-tools \
         ros-humble-ros2-controllers \
         ros-humble-moveit \
+        ros-humble-ublox-dgnss \
         ros-humble-foxglove-msgs \
         ros-humble-foxglove-compressed-video-transport \
         ros-humble-depthai-v3 \
