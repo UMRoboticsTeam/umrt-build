@@ -54,7 +54,7 @@ cleanup() {
     # Note "|| true" is so the process doesn't end if a command fails
     # Deleting the intermediate also deletes the docker device, since they are essentially the same device.
     # Most of the time the device is deleted automatically, but there are other times it isn't.
-    ip link show $UMRT_ARM_CAN_DEVICE_INTERMEDIATE 2>/dev/null && echo "Cleaning up..." \
+    ip link show $UMRT_ARM_CAN_DEVICE_INTERMEDIATE &>/dev/null && echo "Cleaning up..." \
         && sudo ip link delete $UMRT_ARM_CAN_DEVICE_INTERMEDIATE 2>/dev/null \
         && echo "Deleted $UMRT_ARM_CAN_DEVICE_INTERMEDIATE" \
         || true
