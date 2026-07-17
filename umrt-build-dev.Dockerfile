@@ -28,4 +28,13 @@ RUN ( \
   ) > /etc/ssh/sshd_config.d/umrt.conf \
   && mkdir /run/sshd
 
+# Automagically source the ros environment for root and user
+RUN --mount=type=secret,id=DEV_USER_NAME ( \
+    echo 'source /opt/ros/humble/setup.bash' \
+    echo 'if [ -f /workspace/install/setup.bash ]; then source /workspace/install/setup.bash; fi' \
+  ) | tee /home/"$(cat /run/secrets/DEV_USER_NAME)"/.bashrc >> /root/.bashrc
+
+# Add user to sudo group
+RUN --mount=type=secret,id=DEV_USER_NAME usermod -aG sudo "$(cat /run/secrets/DEV_USER_NAME)"
+
 ENTRYPOINT /usr/sbin/sshd && /bin/bash
