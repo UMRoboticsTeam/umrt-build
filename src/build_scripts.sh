@@ -21,3 +21,4 @@ rm -r ./build-output/share/colcon-core
 cp -r ./build-output/share/* /opt/ros/humble/share/
 cp -r ./build-output/lib/* /opt/ros/humble/lib/
 cp -r ./build-output/include/* /opt/ros/humble/include/
+cp -r ./build-output/local/lib/python3.10/dist-packages/* /opt/ros/humble/local/lib/python3.10/dist-packages/
