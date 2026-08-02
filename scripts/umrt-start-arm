@@ -85,6 +85,7 @@ docker run \
     --volume "$UMRT_ARM_DOCKER_WORKSPACE:/workspace" \
     --device=/dev/input `# For game controllers` \
     --pull=always \
+    "$@" \
     ghcr.io/umroboticsteam/umrt-build-dev:main
 
 exit 0
