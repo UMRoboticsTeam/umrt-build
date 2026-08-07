@@ -1,5 +1,7 @@
 FROM ros:humble-ros-base
 
+SHELL ["/bin/bash", "-c"]
+
 RUN echo "deb [arch=amd64,arm64 signed-by=/etc/apt/keyrings/umrt.asc] https://raw.githubusercontent.com/UMRoboticsTeam/umrt-apt-repo/main/ humble main" > /etc/apt/sources.list.d/umrt_source.list
 
 RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf --mount=type=secret,id=apt_pubkey,target=/etc/apt/keyrings/umrt.asc,mode=0644 \
@@ -45,6 +47,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-joint-state-publisher \
         ros-humble-aruco-opencv \
         ros-humble-libstatistics-collector \
+        ros-humble-ros-babel-fish \
         openframeworksarduino=0.0.3 \
         umrt-imu-interface=0.0.4 \
         umrt-geiger-interface=0.1.3 \
@@ -55,10 +58,15 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
 
 RUN sudo pip3 install cantools
 
-COPY . /ws
+COPY src /ws/src
+COPY Messages.sym /ws
+COPY version /ws
+
+RUN cd /ws/src && git clone https://github.com/UMRoboticsTeam/ros2_j1939_babbler.git && cd ros2_j1939_babbler && \
+    git checkout v0.2.4
 
 RUN cd /ws/src && ./build_scripts.sh
 
-RUN sudo rm -rf /src
+RUN sudo rm -rf /src /ws
 
 RUN sudo rm -f /etc/apt/sources.list.d/umrt_source.list
