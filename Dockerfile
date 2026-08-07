@@ -51,6 +51,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         umrt-arm-firmware-lib=0.5.0 \
         ros-humble-umrt-project-perry-description=0.0.9-0jammy \
         umrt-arm-encoder-driver=2.0.0 \
+        iproute2 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sudo pip3 install cantools
