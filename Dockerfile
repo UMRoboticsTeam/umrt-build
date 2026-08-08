@@ -29,6 +29,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-ros2-controllers \
         ros-humble-moveit \
         ros-humble-ublox-dgnss \
+        ros-humble-usb-cam \
         ros-humble-foxglove-msgs \
         ros-humble-foxglove-compressed-video-transport \
         ros-humble-depthai-v3 \
