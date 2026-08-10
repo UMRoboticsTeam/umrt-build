@@ -316,3 +316,10 @@ Var=Soil_Temperature signed 0,16 /u:degC /f:0.1 /min:-40 /max:85
 Var=Soil_Moisture signed 16,16 /u:% /f:0.1 /min:0 /max:100
 Var=Soil_EC signed 32,16 /u:uS/cm /f:0.1 /min:0 /max:3276.7
 Var=Soil_PH signed 48,16 /u:pH /f:0.1 /min:0 /max:14
+
+[Front_Headlight_Command]
+ID=00FFEC80h
+Type=Extended
+Len=8
+Var=Front_Headlight_State unsigned 0,8 /u:statevalue /slot:120
+Var=Reserved raw 8,56
