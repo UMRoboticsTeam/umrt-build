@@ -54,6 +54,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-joy \
         ros-humble-teleop-twist-joy \
         ros-humble-foxglove-bridge \
+        ros-humble-network-bridge \
         openframeworksarduino=0.0.3 \
         umrt-imu-interface=0.0.4 \
         umrt-geiger-interface=0.1.3 \
