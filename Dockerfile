@@ -28,6 +28,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-realtime-tools \
         ros-humble-ros2-controllers \
         ros-humble-moveit \
+        ros-humble-moveit-servo \
         ros-humble-ublox-dgnss \
         ros-humble-usb-cam \
         ros-humble-foxglove-msgs \
@@ -46,6 +47,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-ffmpeg-image-transport \
         ros-humble-ffmpeg-image-transport-msgs \
         ros-humble-joint-state-publisher \
+        ros-humble-joy \
         ros-humble-aruco-opencv \
         ros-humble-libstatistics-collector \
         ros-humble-ros-babel-fish \
