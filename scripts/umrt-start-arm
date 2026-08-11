@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+set -e # means exit script after a command fails
+
+#### INPUTS
+#   Set the CAN device number. For example, if you want to passthrough can4 set this to 4.
+#   Default: 0
+UMRT_ARM_CAN_DEVICE_N=${UMRT_ARM_CAN_DEVICE_N:-0}
+#   The workspace directory to be mounted to /workspace in the docker container.
+#   You can set this in your .bashrc if you want to change it.
+#   Default: ~/Projects/umrt-arm-docker-workspace
+UMRT_ARM_DOCKER_WORKSPACE=${UMRT_ARM_DOCKER_WORKSPACE:-$HOME/Projects/umrt-arm-docker-workspace}
+
+
+### Nomenclature
+#   canN    -- The real can device, where messages should come from and eventually be sent to.
+#              This device should already exist before running this script.
+#              If it doesn't though, no problem.
+# Interfaces created:
+#   dcanN   -- The can device on the docker container. Prefixed with d since it cannot be the same as canN.
+#   vxcanN  -- An intermediate device linked to dcanN across net namespace boundaries.
+
+# These can be overwritten if you really need, but if you have a special can device
+# you can just set UMRT_ARM_CAN_DEVICE_REAL=can-arm and UMRT_ARM_CAN_DEVICE_N=99
+UMRT_ARM_CAN_DEVICE_REAL=${UMRT_ARM_CAN_DEVICE_REAL:-can$UMRT_ARM_CAN_DEVICE_N}
+UMRT_ARM_CAN_DEVICE_DOCKER=${UMRT_ARM_CAN_DEVICE_DOCKER:-dcan$UMRT_ARM_CAN_DEVICE_N}
+UMRT_ARM_CAN_DEVICE_INTERMEDIATE=${UMRT_ARM_CAN_DEVICE_INTERMEDIATE:-vxcan$UMRT_ARM_CAN_DEVICE_N}
+
+# Create the workspace directory, if it doesn't already exist.
+mkdir -p $UMRT_ARM_DOCKER_WORKSPACE
+
+# This function waits until the docker container is running and
+# inserts the 'dcanN' device into it's network namespace.
+# It also forwards messages to/from dcanN to canN through vxcanN.
+# Note: dcanN will not appear on your host machine, only vxcanN.
+link_docker_can() {
+    # Ref: https://stackoverflow.com/questions/21183088/how-can-i-wait-for-a-docker-container-to-be-up-and-running
+    until [ "$(docker inspect -f {{.State.Running}} umrt-arm 2>/dev/null)" = "true" ]; do sleep 0.1; done
+    # Ref: https://web.archive.org/web/20250905061340/https://www.lagerdata.com/articles/forwarding-can-bus-traffic-to-a-docker-container-using-vxcan-on-raspberry-pi
+    DOCKERPID=$(docker inspect -f '{{ .State.Pid }}' umrt-arm)
+    sudo ip link set $UMRT_ARM_CAN_DEVICE_DOCKER netns $DOCKERPID
+    sudo ip link set $UMRT_ARM_CAN_DEVICE_INTERMEDIATE up
+    sudo nsenter -t $DOCKERPID -n ip link set $UMRT_ARM_CAN_DEVICE_DOCKER up
+
+    # Link these devices together
+    # If there is no can device, do not output stderr
+    sudo cangw -A -s $UMRT_ARM_CAN_DEVICE_REAL -d $UMRT_ARM_CAN_DEVICE_INTERMEDIATE -e 2>/dev/null
+    sudo cangw -A -s $UMRT_ARM_CAN_DEVICE_INTERMEDIATE -d $UMRT_ARM_CAN_DEVICE_REAL -e 2>/dev/null
+    # Once one of the devices is deleted, these forwarding rules are also deleted.
+}
+
+# This function will automatically run using 'trap' to clean up if a command fails
+# or once the script ends.
+cleanup() {
+    # Note "|| true" is so the process doesn't end if a command fails
+    # Deleting the intermediate also deletes the docker device, since they are essentially the same device.
+    # Most of the time the device is deleted automatically, but there are other times it isn't.
+    ip link show $UMRT_ARM_CAN_DEVICE_INTERMEDIATE &>/dev/null && echo "Cleaning up..." \
+        && sudo ip link delete $UMRT_ARM_CAN_DEVICE_INTERMEDIATE 2>/dev/null \
+        && echo "Deleted $UMRT_ARM_CAN_DEVICE_INTERMEDIATE" \
+        || true
+}
+
+
+# Verify kernel modules are loaded
+sudo modprobe vxcan
+sudo modprobe can-gw
+
+# Create the devices now, since we don't need to know the process id yet
+# ALSO: This 'sudo' authenticates the terminal so you won't have to type your
+# password when the function runs in the background (which is impossible)
+sudo ip link add $UMRT_ARM_CAN_DEVICE_INTERMEDIATE type vxcan peer name $UMRT_ARM_CAN_DEVICE_DOCKER
+trap cleanup EXIT # Now we need to clean up if anything happens.
+
+# Run function in background
+link_docker_can&
+
+# Launch the container
+docker run \
+    --rm \
+    --name umrt-arm \
+    --hostname umrt-arm \
+    --interactive \
+    --tty \
+    --publish 12345:50000 `# ssh fowarding` \
+    --volume "$UMRT_ARM_DOCKER_WORKSPACE:/workspace" \
+    --device=/dev/input `# For game controllers` \
+    --pull=always \
+    ghcr.io/umroboticsteam/umrt-build-dev:main
+
+exit 0
