@@ -62,7 +62,9 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf \
         iproute2 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /etc/apt/keyrings && \
+RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf \
+    --mount=type=secret,id=apt_pubkey,target=/etc/apt/keyrings/umrt.asc,mode=0644 \
+    mkdir -p /etc/apt/keyrings && \
     curl -L https://download.eclipse.org/zenoh/debian-repo/zenoh-public-key | \
         gpg --dearmor --yes \
         --output /etc/apt/keyrings/zenoh-public-key.gpg && \
@@ -88,5 +90,7 @@ RUN cd /ws/src && ./build_scripts.sh
 RUN sudo rm -rf /src /ws
 
 RUN sudo rm -f /etc/apt/sources.list.d/umrt_source.list
+
 RUN sudo sed -i '\|https://download.eclipse.org/zenoh/debian-repo/|d' /etc/apt/sources.list
+
 RUN sudo rm -f /etc/apt/keyrings/zenoh-public-key.gpg
