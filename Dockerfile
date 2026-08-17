@@ -9,6 +9,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf \
     apt-get update && \
     apt-get install -y \
         curl \
+        gnupg \
         gdb \
         gdbserver \
         libboost-all-dev \
@@ -61,12 +62,14 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf \
         iproute2 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -L \
-    https://download.eclipse.org/zenoh/debian-repo/1.9.0/zenoh-bridge-ros2dds_1.9.0_amd64.deb \
-    -o /tmp/zenoh-bridge-ros2dds.deb && \
+RUN mkdir -p /etc/apt/keyrings && \
+    curl -L https://download.eclipse.org/zenoh/debian-repo/zenoh-public-key | \
+        gpg --dearmor --yes \
+        --output /etc/apt/keyrings/zenoh-public-key.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/zenoh-public-key.gpg] https://download.eclipse.org/zenoh/debian-repo/ /" \
+        >> /etc/apt/sources.list && \
     apt-get update && \
-    apt-get install -y /tmp/zenoh-bridge-ros2dds.deb && \
-    rm -f /tmp/zenoh-bridge-ros2dds.deb && \
+    apt-get install -y zenoh-bridge-ros2dds && \
     rm -rf /var/lib/apt/lists/*
 
 RUN sudo pip3 install cantools
@@ -85,3 +88,5 @@ RUN cd /ws/src && ./build_scripts.sh
 RUN sudo rm -rf /src /ws
 
 RUN sudo rm -f /etc/apt/sources.list.d/umrt_source.list
+RUN sudo sed -i '\|https://download.eclipse.org/zenoh/debian-repo/|d' /etc/apt/sources.list
+RUN sudo rm -f /etc/apt/keyrings/zenoh-public-key.gpg
