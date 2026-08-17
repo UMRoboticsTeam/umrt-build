@@ -71,8 +71,9 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf \
     echo "deb [signed-by=/etc/apt/keyrings/zenoh-public-key.gpg] https://download.eclipse.org/zenoh/debian-repo/ /" \
         >> /etc/apt/sources.list && \
     apt-get update && \
-    apt-get install -y zenoh-bridge-ros2dds && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y \
+        zenoh-bridge-ros2dds=1.3.4 \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN sudo pip3 install cantools
 
