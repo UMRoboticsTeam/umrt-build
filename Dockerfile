@@ -53,6 +53,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf \
         ros-humble-aruco-opencv \
         ros-humble-libstatistics-collector \
         ros-humble-ros-babel-fish \
+        ros-humble-foxglove-bridge \
         openframeworksarduino=0.0.3 \
         umrt-imu-interface=0.0.4 \
         umrt-geiger-interface=0.1.3 \
