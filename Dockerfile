@@ -14,8 +14,11 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf \
     curl -L https://download.eclipse.org/zenoh/debian-repo/zenoh-public-key | \
         gpg --dearmor --yes --output /etc/apt/keyrings/zenoh-public-key.gpg && \
     echo "deb [signed-by=/etc/apt/keyrings/zenoh-public-key.gpg] https://download.eclipse.org/zenoh/debian-repo/ /" \
-        > /etc/apt/sources.list.d/zenoh.list && \
-    apt-get update && \
+        >> /etc/apt/sources.list && \
+    apt-get update
+
+RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf \
+    --mount=type=secret,id=apt_pubkey,target=/etc/apt/keyrings/umrt.asc,mode=0644 \
     apt-get install -y \
         gdb \
         gdbserver \
@@ -76,7 +79,8 @@ COPY src /ws/src
 COPY Messages.sym /ws
 COPY version /ws
 
-RUN cd /ws/src && git clone https://github.com/UMRoboticsTeam/ros2_j1939_babbler.git && \
+RUN cd /ws/src && \
+    git clone https://github.com/UMRoboticsTeam/ros2_j1939_babbler.git && \
     cd ros2_j1939_babbler && \
     git checkout v0.2.4
 
@@ -84,7 +88,6 @@ RUN cd /ws/src && ./build_scripts.sh
 
 RUN sudo rm -rf /src /ws
 
-RUN sudo rm -f \
-    /etc/apt/sources.list.d/umrt_source.list \
-    /etc/apt/sources.list.d/zenoh.list \
-    /etc/apt/keyrings/zenoh-public-key.gpg
+RUN sudo rm -f /etc/apt/sources.list.d/umrt_source.list
+RUN sudo sed -i '\|https://download.eclipse.org/zenoh/debian-repo/|d' /etc/apt/sources.list
+RUN sudo rm -f /etc/apt/keyrings/zenoh-public-key.gpg
