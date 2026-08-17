@@ -4,8 +4,19 @@ SHELL ["/bin/bash", "-c"]
 
 RUN echo "deb [arch=amd64,arm64 signed-by=/etc/apt/keyrings/umrt.asc] https://raw.githubusercontent.com/UMRoboticsTeam/umrt-apt-repo/main/ humble main" > /etc/apt/sources.list.d/umrt_source.list
 
-RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf --mount=type=secret,id=apt_pubkey,target=/etc/apt/keyrings/umrt.asc,mode=0644 \
-    sudo apt update && sudo apt install -y \
+RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf \
+    --mount=type=secret,id=apt_pubkey,target=/etc/apt/keyrings/umrt.asc,mode=0644 \
+    apt-get update && \
+    apt-get install -y \
+        curl \
+        gnupg && \
+    mkdir -p /etc/apt/keyrings && \
+    curl -L https://download.eclipse.org/zenoh/debian-repo/zenoh-public-key | \
+        gpg --dearmor --yes --output /etc/apt/keyrings/zenoh-public-key.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/zenoh-public-key.gpg] https://download.eclipse.org/zenoh/debian-repo/ /" \
+        > /etc/apt/sources.list.d/zenoh.list && \
+    apt-get update && \
+    apt-get install -y \
         gdb \
         gdbserver \
         libboost-all-dev \
@@ -56,6 +67,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf -
         ros-humble-umrt-project-perry-description=0.0.9-0jammy \
         umrt-arm-encoder-driver=2.0.0 \
         iproute2 \
+        zenoh-bridge-ros2dds \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sudo pip3 install cantools
@@ -64,11 +76,15 @@ COPY src /ws/src
 COPY Messages.sym /ws
 COPY version /ws
 
-RUN cd /ws/src && git clone https://github.com/UMRoboticsTeam/ros2_j1939_babbler.git && cd ros2_j1939_babbler && \
+RUN cd /ws/src && git clone https://github.com/UMRoboticsTeam/ros2_j1939_babbler.git && \
+    cd ros2_j1939_babbler && \
     git checkout v0.2.4
 
 RUN cd /ws/src && ./build_scripts.sh
 
 RUN sudo rm -rf /src /ws
 
-RUN sudo rm -f /etc/apt/sources.list.d/umrt_source.list
+RUN sudo rm -f \
+    /etc/apt/sources.list.d/umrt_source.list \
+    /etc/apt/sources.list.d/zenoh.list \
+    /etc/apt/keyrings/zenoh-public-key.gpg
