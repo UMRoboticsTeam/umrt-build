@@ -76,7 +76,6 @@ link_docker_can&
 
 # Launch the container
 docker run \
-    --rm \
     --name umrt-arm \
     --hostname umrt-arm \
     --interactive \
@@ -86,6 +85,6 @@ docker run \
     --device=/dev/input `# For game controllers` \
     --pull=always \
     "$@" \
-    ghcr.io/umroboticsteam/umrt-build-dev:main
+    ghcr.io/umroboticsteam/umrt-build-dev:babbler
 
 exit 0
