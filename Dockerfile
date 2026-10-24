@@ -32,6 +32,6 @@ RUN sudo pip3 install cantools
 
 RUN mkdir -p /ws/src
 
-COPY . /ws
+COPY src /ws/src
 
 RUN cd /ws/src && ./build_scripts.sh
