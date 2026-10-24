@@ -1,13 +1,11 @@
 ARG UMRT_BUILD_IMAGE_ID=ghcr.io/umroboticsteam/umrt-build:latest
 FROM ${UMRT_BUILD_IMAGE_ID}
 
+RUN echo 'Acquire::Queue-Mode "host";' > /etc/apt/apt.conf.d/99parallel \
+    && echo 'Acquire::http::Pipeline-Depth "5";' >> /etc/apt/apt.conf.d/99parallel
+
 RUN sudo apt update && sudo apt install -y \
-	gdb \
-	gdbserver \
-	ssh \
-	rsync \
-    nano \
-    can-utils \
+	ssh rsync nano can-utils \
  && rm -rf /var/lib/apt/lists/*
 
 # Setup user for SSH
