@@ -30,8 +30,9 @@ RUN sudo rm -f /etc/apt/sources.list.d/umrt_source.list
 
 RUN sudo pip3 install cantools
 
-RUN mkdir -p /ws/src
-
 COPY src /ws/src
 
+RUN git clone https://github.com/UMRoboticsTeam/ros2_j1939_babbler.git /ws/src/ros2_j1939_babbler && \
+    git -C /ws/src/ros2_j1939_babbler checkout v0.2.4
 RUN cd /ws/src && ./build_scripts.sh
+RUN sudo rm -rf /src /ws
