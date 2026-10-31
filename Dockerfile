@@ -58,6 +58,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
         ros-humble-ros2-socketcan \
         ros-humble-teleop-twist-joy \
         ros-humble-ublox-dgnss \
+        ros-humble-usb-cam \
         ros-humble-v4l2-camera \
         ros-humble-vision-msgs \
         ros-humble-xacro \
