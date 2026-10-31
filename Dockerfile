@@ -84,6 +84,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf \
 
 # Delete apt list so people don't install outdated packages if the image was built a while ago.
 RUN rm -rf /var/lib/apt/lists/*
+RUN rm -rf /var/cache/apt/*
 
 # Install dependencies, and copy and run build script
 RUN sudo pip3 install cantools
