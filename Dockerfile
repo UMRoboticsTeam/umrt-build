@@ -52,6 +52,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
         ros-humble-moveit-servo \
         ros-humble-realtime-tools \
         ros-humble-rmw-fastrtps-cpp \
+        ros-humble-ros-babel-fish \
         ros-humble-ros2-control \
         ros-humble-ros2-controllers \
         ros-humble-ros2-socketcan \
@@ -87,7 +88,12 @@ RUN rm -rf /var/lib/apt/lists/*
 # Install dependencies, and copy and run build script
 RUN sudo pip3 install cantools
 COPY src /ws/src
-RUN git clone https://github.com/UMRoboticsTeam/ros2_j1939_babbler.git /ws/src/ros2_j1939_babbler && \
-    git -C /ws/src/ros2_j1939_babbler checkout v0.2.4
+
+# These files are referenced in symlinks, so they also have to be copied.
+COPY ./version /ws
+COPY ./Messages.sym /ws
+
+RUN git clone https://github.com/UMRoboticsTeam/ros2_j1939_babbler.git /ws/src/ros2_j1939_babbler \
+    && git -C /ws/src/ros2_j1939_babbler checkout v0.2.4
 RUN cd /ws/src && ./build_scripts.sh
 RUN sudo rm -rf /ws
