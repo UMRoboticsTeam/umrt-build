@@ -9,6 +9,25 @@ COPY ./files/zenoh-public-key.gpg /etc/apt/keyrings/zenoh-public-key.gpg
 COPY ./files/zenoh.list /etc/apt/sources.list.d/zenoh.list
 COPY ./files/99parallel /etc/apt/apt.conf.d/99parallel
 
+# Install packages from UMRT's apt repo
+# This step won't work locally.
+COPY ./files/umrt_source.list /etc/apt/sources.list.d/umrt_source.list
+RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf \
+    --mount=type=secret,id=apt_pubkey,target=/etc/apt/keyrings/umrt.asc,mode=0644 \
+    --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+        apt-get update \
+        && apt-get install -y --no-install-recommends -o Dpkg::Options::="--force-overwrite" \
+            doxygen-awesome-css \
+            openframeworksarduino=0.0.3 \
+            ros-humble-umrt-project-perry-description=0.0.9-0jammy \
+            ros-humble-umrt-ros-poe-cam \
+            umrt-arm-encoder-driver=2.0.0 \
+            umrt-arm-firmware-lib=0.5.0 \
+            umrt-geiger-interface=0.1.3 \
+            umrt-imu-interface=0.0.4 \
+        && rm -f /etc/apt/sources.list.d/umrt_source.list
+
 # Install necessary packages from public repos
 # Please retain alphabetical ordering
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
@@ -63,25 +82,6 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
         ros-humble-vision-msgs \
         ros-humble-xacro \
         zenoh-bridge-ros2dds=1.3.4
-
-# Install packages from UMRT's apt repo
-# This step won't work locally.
-COPY ./files/umrt_source.list /etc/apt/sources.list.d/umrt_source.list
-RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf \
-    --mount=type=secret,id=apt_pubkey,target=/etc/apt/keyrings/umrt.asc,mode=0644 \
-    --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
-        apt-get update \
-        && apt-get install -y --no-install-recommends -o Dpkg::Options::="--force-overwrite" \
-            doxygen-awesome-css \
-            openframeworksarduino=0.0.3 \
-            ros-humble-umrt-project-perry-description=0.0.9-0jammy \
-            ros-humble-umrt-ros-poe-cam \
-            umrt-arm-encoder-driver=2.0.0 \
-            umrt-arm-firmware-lib=0.5.0 \
-            umrt-geiger-interface=0.1.3 \
-            umrt-imu-interface=0.0.4 \
-        && rm -f /etc/apt/sources.list.d/umrt_source.list
 
 # Delete apt list so people don't install outdated packages if the image was built a while ago.
 RUN rm -rf /var/lib/apt/lists/*
