@@ -23,7 +23,7 @@ RUN --mount=type=secret,id=apt_auth_conf,target=/etc/apt/auth.conf.d/umrt.conf \
             ros-humble-umrt-project-perry-description=0.0.9-0jammy \
             ros-humble-umrt-ros-poe-cam \
             umrt-arm-encoder-driver=2.0.0 \
-            umrt-arm-firmware-lib=0.5.0 \
+            umrt-arm-firmware-lib=0.6.1 \
             umrt-geiger-interface=0.1.3 \
             umrt-imu-interface=0.0.4 \
         && rm -f /etc/apt/sources.list.d/umrt_source.list
