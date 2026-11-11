@@ -83,6 +83,12 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
         ros-humble-xacro \
         zenoh-bridge-ros2dds=1.3.4
 
+# Fix RosDep for Package Builds
+RUN mkdir -p /etc/ros/rosdep/sources.list.d \
+    && dpkg-query -W -f="${Package}\n" "ros-humble-umrt-*" 2>/dev/null |   sed "s/^ros-humble-\(.*\)$/\1:\n  ubuntu:\n    jammy: [ros-humble-\1]/"   > /etc/ros/rosdep/sources.list.d/umrt.yaml \
+    && echo "yaml file:///etc/ros/rosdep/sources.list.d/umrt.yaml" > /etc/ros/rosdep/sources.list.d/10-umrt.list \
+    && rosdep update
+
 # Delete apt list so people don't install outdated packages if the image was built a while ago.
 RUN rm -rf /var/lib/apt/lists/*
 RUN rm -rf /var/cache/apt/*
