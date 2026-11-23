@@ -54,7 +54,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
         ros-humble-aruco-opencv \
         ros-humble-depth-image-proc \
         ros-humble-depthai-bridge-v3 \
-        ros-humble-depthai-descriptions \
+        ros-humble-depthai-descriptions-v3 \
         ros-humble-depthai-ros-msgs-v3 \
         ros-humble-depthai-v3 \
         ros-humble-ffmpeg-image-transport \
